@@ -11,7 +11,8 @@ ohmyzsh/ohmyzsh path:plugins/laravel
 ohmyzsh/ohmyzsh path:plugins/redis-cli
 
 # Vi mode bindings
-ohmyzsh/ohmyzsh path:plugins/vi-mode
+# no vi mode for now
+# ohmyzsh/ohmyzsh path:plugins/vi-mode
 
 # These two MUST be the last plugins to be sourced!
 zsh-users/zsh-syntax-highlighting
