@@ -5,16 +5,15 @@ function loadDb() {
     HOST="${3:-127.0.0.1}"
     PORT="${4:-3306}"
     USER="laravel"
-    echo -n "Mysql password:"
-    read -s password
+
+    password=$(dialog --insecure --title "LET ME IN" --passwordbox "MYSQL PASSWORD" 16 70 3>&1 1>&2 2>&3 3>&-)
     #Line Break
-    echo ''
     mysql -h$HOST -P$PORT -u$USER -p$password -e "drop database if exists $DB; create database $DB;"
     if [ $? -eq 0 ]; then
         if [[ $SQL =~ \.sql.gz$ ]]; then
-            zcat $SQL | mysql -h$HOST -P$PORT -u$USER -p$password $DB
+            (pv -n $SQL | zcat | mysql -h$HOST -P$PORT -u$USER -p$password $DB) 2>&1 | dialog --title "☕Loading $DB database🍺" --gauge "$(fortune)" 16 70
         elif [[ $SQL =~ \.sql$ ]]; then
-            mysql -h$HOST -P$PORT -u$USER -p$password $DB < $SQL
+            (pv -n $SQL | mysql -h$HOST -P$PORT -u$USER -p$password $DB) 2>&1 | dialog --title "☕Loading $DB database🍺" --gauge "$(fortune)" 16 70
         else
             echo "File type is not sql or sql.gz... i am scared"
             return
