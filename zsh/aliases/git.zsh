@@ -35,11 +35,11 @@ alias dmb="gco master && gb --merged | grep -v '\*' | xargs -n 1 git branch -d"
 function gpr() {
     local branch_name=`git symbolic-ref HEAD 2>/dev/null | cut -d"/" -f 3`
     local repo_url=`git remote get-url origin | sed -e 's/git@//' -e 's/.git//' -e 's/:/\//'`
-    open "https://$repo_url/compare/${1:-master}...$branch_name"
+    x-www-browser "https://$repo_url/compare/${1:-master}...$branch_name"
 }
 
 # Open the create issue page for this repo (with optional title)
 function gis() {
     local repo_url=`git remote get-url origin | sed -e 's/git@//' -e 's/.git//' -e 's/:/\//'`
-    open "https://$repo_url/issues/new?title=${1:-}"
+    x-www-browser "https://$repo_url/issues/new?title=${1:-}"
 }

@@ -1,6 +1,6 @@
 # Laravel aliases
 alias nrd='npm run dev'
-alias nrw='npm run watch'
+alias nrw='guake --split-horizontal && npm run watch'
 alias artisan='php artisan'
 alias art='php artisan'
 alias plz='php please'
