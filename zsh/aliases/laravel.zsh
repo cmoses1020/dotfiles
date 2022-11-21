@@ -7,6 +7,10 @@ alias plz='php please'
 alias lreset='rm -rfv ./vendor ./node_modules && composer install && npm ci && npm run dev'
 alias composer='COMPOSER_MEMORY_LIMIT=-1 composer'
 
+# SAIL
+alias sail='vendor/bin/sail'
+alias sart='vendor/bin/sail artisan'
+
 # Require a package from a local folder
 composer-link() {
     composer config repositories.local '{"type": "path", "url": "'$1'"}' --file composer.json
