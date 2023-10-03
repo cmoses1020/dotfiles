@@ -1,4 +1,5 @@
 # MYSQL
+## Requires mysql, fortune, pv and dialog
 function loadDb() {
     DB=$1
     SQL=$2
