@@ -4,7 +4,7 @@ alias nrw='guake --split-horizontal && npm run watch'
 alias artisan='php artisan'
 alias art='php artisan'
 alias plz='php please'
-alias lreset='rm -rfv ./vendor ./node_modules && composer install && npm ci && npm run dev'
+alias lreset='rm -rfv ./vendor ./node_modules && composer install && npm ci && art view:clear && npm run dev'
 alias composer='COMPOSER_MEMORY_LIMIT=-1 composer'
 
 # SAIL
@@ -41,4 +41,28 @@ function dev() {
 
 function createdb() {
     mysql -uroot -e "create database if not exists ${1:laravel};"
+}
+
+function loopTest() {
+    if [ -z "$1" ]; then
+        echo "Usage: loopTest <test name>"
+        return 1
+    fi
+
+    # if $2 is set, use that for times run else set to 100
+    if [ -z "$2" ]; then
+        times=100
+    else
+        times=$2
+    fi
+
+    # loop test until failure or run 100 times
+    for i in {1..$times}; do
+        echo "Running test $i..."
+        vendor/bin/phpunit --filter $1
+        if [ $? -ne 0 ]; then
+            echo "Test failed on run $i"
+            return 1
+        fi
+    done
 }
