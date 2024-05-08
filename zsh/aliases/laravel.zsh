@@ -43,6 +43,18 @@ function createdb() {
     mysql -uroot -e "create database if not exists ${1:laravel};"
 }
 
+function share-site() {
+    screen -dmS "Vite" npm run dev -- --host=127.0.0.1
+
+    echo "Vite started"
+
+    screen -dmS "art serve" php artisan serve --host=127.0.0.1
+
+    echo "Artisan serve started"
+
+    ngrok http 127.0.0.1:8000
+}
+
 function loopTest() {
     if [ -z "$1" ]; then
         echo "Usage: loopTest <test name>"

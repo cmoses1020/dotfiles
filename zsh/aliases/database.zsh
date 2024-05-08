@@ -30,3 +30,15 @@ function loadDb() {
         echo "Looks like something went wrong, probably a bad password"
     fi
 }
+
+function crunchDb() {
+    FILENAME=~/db_dumps/$(ls -1t ~/db_dumps/ | grep -P '^'"$1"'(\s\(\d+\))?\.sql\.gz$' | head -n1)
+    echo "Crunching $FILENAME and removing audit table"
+    pv $FILENAME | zcat | sed -e '/INSERT INTO `audits`/d' -e '/INSERT INTO `health_check_result_history_items`/d' | mysql "$1"
+}
+
+function importDb() {
+    FILENAME=~/db_dumps/$(ls -1t ~/db_dumps/ | grep -P '^'"$1"'(\s\(\d+\))?\.sql\.gz$' | head -n1)
+    echo "Importing $FILENAME"
+    pv $FILENAME | zcat | mysql "$1"
+}
