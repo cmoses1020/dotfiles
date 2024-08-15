@@ -44,6 +44,7 @@ function createdb() {
 }
 
 function share-site() {
+
     screen -dmS "Vite" npm run dev -- --host=127.0.0.1
 
     echo "Vite started"
@@ -53,6 +54,13 @@ function share-site() {
     echo "Artisan serve started"
 
     ngrok http 127.0.0.1:8000
+
+    echo "NGROK closed";
+
+    screen -S "art serve" -X stuff "^C"
+    screen -S Vite -X stuff "^C"
+
+    echo "Closed Serve && Vite"
 }
 
 function loopTest() {

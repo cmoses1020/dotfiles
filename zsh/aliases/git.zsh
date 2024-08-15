@@ -32,7 +32,7 @@ alias unstage='git reset HEAD'
 alias dmb="gco main && gb --merged | grep -v '\*' | xargs -n 1 git branch -d"
 
 # Open pull request page for current branch (or specify with optional argument)
-function gpr() {
+function gitpr() {
     local branch_name=`git symbolic-ref HEAD 2>/dev/null | cut -d"/" -f 3`
     local repo_url=`git remote get-url origin | sed -e 's/git@//' -e 's/.git//' -e 's/:/\//'`
     x-www-browser "https://$repo_url/compare/${1:-main}...$branch_name"
