@@ -54,11 +54,11 @@ function crunchDbNew() {
     if command -v pigz &> /dev/null; then
         pv "$FILENAME" | pigz -dc 2>/dev/null | \
         sed -e '/INSERT INTO `audits`/d' -e '/INSERT INTO `health_check_result_history_items`/d' | \
-        mysql "$1"
+        mysql "$1" -h127.0.0.1
     else
         pv "$FILENAME" | zcat 2>/dev/null | \
         sed -e '/INSERT INTO `audits`/d' -e '/INSERT INTO `health_check_result_history_items`/d' | \
-        mysql "$1"
+        mysql "$1" -h127.0.0.1
     fi
 
     # Check if the MySQL command was successful
