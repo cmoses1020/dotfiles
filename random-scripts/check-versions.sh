@@ -35,11 +35,12 @@ STATEURLS=(
     "ut.tmutest.com"
     "wi.tmutest.com"
     "wy.tmutest.com"
+    "nm.tmutest.com"
 )
 
 
 for SITE in ${STATEURLS[@]}; do
-    COMMAND="php /home/forge/$SITE/current/artisan core:update-facility-application-forms-create-fields"
+    COMMAND="mysql -V"
 
     echo -e "\n\e[90m==================== \e[34mSTART: $SITE \e[90m====================\e[0m"
     ssh forge@$SITE $COMMAND
