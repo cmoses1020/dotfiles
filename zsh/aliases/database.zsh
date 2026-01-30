@@ -73,7 +73,7 @@ function crunchDbNew() {
 function importDb() {
     FILENAME=~/db_dumps/$(ls -1t ~/db_dumps/ | grep -P '^'"$1"'(\s\(\d+\))?\.sql\.gz$' | head -n1)
     echo "Importing $FILENAME"
-    pv $FILENAME | zcat | mysql "$1"
+    pv $FILENAME | zcat | mysql "$1" -h127.0.0.1
 }
 
 function dbSize() {
